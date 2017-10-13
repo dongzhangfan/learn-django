@@ -1,8 +1,15 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
+
+from lists.models import Item
 
 
 def home_page(request):
-    return render(request, 'home.html',{
-        'new_item_text': request.POST.get('item_text', ''),
-    })  # Django automatically search folders called tempaltes
+    if request.method == 'POST':
+        Item.objects.create(text=request.POST['item_text'])
+        return redirect('/')
+
+    items = Item.objects.all()
+
+    # Django auto search folders called 'templates'
+    return render(request, 'home.html', {'items': items})
