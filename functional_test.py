@@ -43,20 +43,24 @@ class NewVisitorTest(unittest.TestCase):
         inputbox.send_keys(Keys.ENTER)
         time.sleep(1)
 
+
+        # There is still a text box inviting her to add another item. She
+        # enters "use peacock feathers to make a fly" (Edith is very methodical)
+        inputbox = self.browser.find_element_by_id('id_new_item')
+        inputbox.send_keys('Use peacock feathers to make a fly')
+        inputbox.send_keys(Keys.ENTER)
+        time.sleep(1)
+
+        # The page updates again, and now shows both items on her list
         table = self.browser.find_element_by_id('id_list_table')
         rows = table.find_elements_by_tag_name('tr')
         self.check_for_row_in_list_table('1: Buy peacock feathers')
         self.check_for_row_in_list_table('2: Use peacock feathers to make a fly')
 
-        # There is still a text box inviting her to add another item. She
-        # enters "use peacock feathers to make a fly" (Edith is very methodical)
-        self.fail('Finish the test')
-
-        # The page updates again, and now shows both items on her list
-
         # Edith wonders whether the site will remember her list. Then she sees
         # that the site has generated a unique URL for her -- there is some
         # explanatory text to that effect.
+        self.fail('Finish the test')
 
         # She visits that URL - her to-do list is still there.
 
